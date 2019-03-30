@@ -1,12 +1,16 @@
 {
     "name": "shanegri/closure-loader",
     "type": "library",
+    "description": "",
     "require": {
         "php": "^7.0"
     },
     "autoload": {
         "psr-0": {
             "ClosureLoader": "src/"
+        },
+        "psr-4": {
+            "ClosureLoader\\": "src/"
         }
     }
 }
