@@ -6,21 +6,27 @@ use ClosureLoader\Paths as p;
 
 class Loader {
 
-    private $uri;
+    private $version;
+
+    private $basePath;
     private $compiled_path;
-    private $modules_path;
     private $src_path;
     private $dev = true;
 
-    public function __construct(array $settings, $uri) {        
+    public function __construct(array $settings) {        
         $this->src_path       = p::validate($settings['sources']);
         $this->compiled_path  = p::validate($settings['compiled']);
-        $this->modules_path   = p::validate($settings['modules']);
+        
+        $this->basePath = $settings["base"];
+
+        $this->version = isset($settings['version'])
+            ? intval($settings['version'])
+            : 0;
 
         if(isset($settings['dev']))
             $this->dev = $settings['dev'];
 
-        $this->uri = $uri;
+        $this->basePath = $basePath;
     }
 
     public function script($path) {
@@ -34,16 +40,17 @@ class Loader {
 
         $files = $dependecies->toArray();
 
-        $rel_paths = p::relative($files, $this->uri);
+        $rel_paths = p::relative($files, $this->basePath);
 
         return p::toScriptTag($rel_paths, $this->dev);
     }
 
     private function fromCompiled($path) {
-        $src_js = $this->compiled_path . $path . '.js';
-        $rel_js = p::toRelative($src_js, $this->uri);
+        $compiled_name = preg_replace("/\//", "$", $path);
+        $compiled_abs = $this->compiled_path . $compiled_name;
+        $rel_js = p::toRelative($compiled_abs, $this->basePath);
         return "
-            <script src='$rel_js'></script>        
+            <script src='$rel_js?v={$this->version}'></script>        
         ";
     }
 
