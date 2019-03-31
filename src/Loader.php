@@ -26,7 +26,6 @@ class Loader {
         if(isset($settings['dev']))
             $this->dev = $settings['dev'];
 
-        $this->basePath = $basePath;
     }
 
     public function script($path) {
