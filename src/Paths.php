@@ -35,7 +35,7 @@ class Paths {
         $retVal = [];
 
         foreach($paths as $path) {
-            $retVal[] = static::toRelative($path, $basePath);
+            $retVal[] = Paths::toRelative($path, $basePath);
         }
 
         return $retVal;
