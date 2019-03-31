@@ -40,7 +40,7 @@ class DependencyGraph implements JsonSerializable {
         return $node;
     }
 
-    public function contains(string $path) {
+    public function contains($path) {
         return in_array($path, $this->used_paths);
     }
 
