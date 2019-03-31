@@ -47,11 +47,21 @@ class Paths {
             return preg_replace("/$base/", "", $path);
         }
 
-        $base = preg_replace( '/\//', '\/', $basePath );
+        $base = static::pathToRE($basePath);
         $matches = [];
         preg_match("/(.*($base.*))/", $path, $matches );
-        return $matches[2];
+        if( count($matches) != 0 ) {
+            return $matches[2];
+        } else {
+            $root = preg_replace("/$base/", "", getcwd());
+            return preg_replace("/".static::pathToRE($root)."/", "", $path);
+        }
     }
+
+    private static function pathToRE($path) {
+        return preg_replace( '/\//', '\/', $path );
+    }
+
 
 
     
