@@ -38,16 +38,22 @@ class Loader {
         $dependecies = new DependencyGraph($this->src_path . $path);
 
         $files = $dependecies->toArray();
+        
+        $basePath = $this->basePath;
+        $isDev = $this->dev;
 
-        $rel_paths = p::relative($files, $this->basePath);
+        $rel_paths = p::relative($files, $basePath);
 
-        return p::toScriptTag($rel_paths, $this->dev);
+        return p::toScriptTag($rel_paths, $isDev);
     }
 
     private function fromCompiled($path) {
         $compiled_name = preg_replace("/\//", "$", $path);
         $compiled_abs = $this->compiled_path . $compiled_name;
-        $rel_js = p::toRelative($compiled_abs, $this->basePath);
+
+        $basePath = $this->basePath;
+
+        $rel_js = p::toRelative($compiled_abs, $basePath);
         return "
             <script src='$rel_js?v={$this->version}'></script>        
         ";
