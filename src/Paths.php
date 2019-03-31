@@ -31,17 +31,17 @@ class Paths {
         return $retVal;
     }
 
-    public function relative($paths, $basePath) {
+    public static function relative($paths, $basePath) {
         $retVal = [];
 
         foreach($paths as $path) {
-            $retVal[] = Paths::toRelative($path, $basePath);
+            $retVal[] = static::toRelative($path, $basePath);
         }
 
         return $retVal;
     }
 
-    public function toRelative($path, $basePath) {
+    public static function toRelative($path, $basePath) {
         if(in_array($basePath, ["/", ""])) {
             $base = preg_replace( '/\//', '\/', getcwd() );
             return preg_replace("/$base/", "", $path);
