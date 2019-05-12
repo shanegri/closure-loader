@@ -16,7 +16,7 @@ class Loader {
     {        
         $this->src_path       = p::validate($settings['sources']);
         $this->compiled_path  = p::validate($settings['compiled']);
-        $this->basePath = $settings["base"];
+        $this->basePath = $settings["url_base"];
         $this->version = isset($settings['version'])
             ? intval($settings['version'])
             : 0;
