@@ -6,7 +6,7 @@ use Exception;
 
 class Paths {
 
-    public static function validate(string $path) 
+    public static function validate($path) 
     {
         $path = realpath($path) . '/';
         if( !$path ) 
@@ -15,7 +15,7 @@ class Paths {
         return $path;
     }
 
-    public static function endsWith( string $str, string $sub ) 
+    public static function endsWith( $str, $sub ) 
     {
         return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
     }
@@ -29,7 +29,7 @@ class Paths {
         return $retVal;
     }
 
-    public static function relative(array $paths, string $basePath) 
+    public static function relative(array $paths, $basePath) 
     {
         $retVal = [];
         foreach($paths as $path) {
@@ -38,7 +38,7 @@ class Paths {
         return $retVal;
     }
 
-    public static function toRelative(string $path, string $basePath) 
+    public static function toRelative($path, $basePath) 
     {
         if(in_array($basePath, ["/", ""])) {
             $base = preg_replace( '/\//', '\/', getcwd() );
@@ -55,7 +55,7 @@ class Paths {
         }
     }
 
-    private static function pathToRE(string $path) 
+    private static function pathToRE($path) 
     {
         return preg_replace( '/\//', '\/', $path );
     }
