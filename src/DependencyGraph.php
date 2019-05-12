@@ -10,7 +10,7 @@ class DependencyGraph implements JsonSerializable {
     private $root = null;
     private $used_paths = [];
 
-    public function __construct(string $path) 
+    public function __construct($path) 
     {
         $root = new DependencyNode($path);
         $this->build($root);
@@ -36,7 +36,7 @@ class DependencyGraph implements JsonSerializable {
         return $node;
     }
 
-    public function contains(string $path) 
+    public function contains($path) 
     {
         return in_array($path, $this->used_paths);
     }

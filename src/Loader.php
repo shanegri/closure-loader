@@ -24,14 +24,14 @@ class Loader {
             $this->dev = $settings['dev'];
     }
 
-    public function script(string $path) 
+    public function script($path) 
     {
         return $this->dev 
             ? $this->fromSource($path)
             : $this->fromCompiled($path);
     }
 
-    private function fromSource(string $path) 
+    private function fromSource($path) 
     {
         $dependecies = new DependencyGraph($this->src_path . $path);
         $files = $dependecies->toArray();
@@ -39,7 +39,7 @@ class Loader {
         return p::toScriptTag($rel_paths, $this->dev);
     }
 
-    private function fromCompiled(string $path) 
+    private function fromCompiled($path) 
     {
         $compiled_name = preg_replace("/\//", "$", $path);
         $compiled_abs = $this->compiled_path . $compiled_name;

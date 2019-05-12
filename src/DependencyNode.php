@@ -11,7 +11,7 @@ class DependencyNode implements JsonSerializable {
 
     public $children = [];
 
-    public function __construct(string $path) 
+    public function __construct($path) 
     {
         $this->path = $path;
         $this->folder = dirname($path) . '/';
